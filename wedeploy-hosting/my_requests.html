@@ -4,7 +4,12 @@
     <title>Liferay Ferias</title>
     <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/lexicon-font-awesome.css">
     <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/atlas-font-awesome.css">
+    <meta charset="utf-8" /> 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
+    <link rel="stylesheet" href="metal-liferayFerias/build/liferayFerias.css">
+    <script src="metal-liferayFerias/build/globals/liferayFerias.js"></script>
     <script src="http://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
 <style>
     body {
@@ -17,9 +22,9 @@
     <!-- http://liferayferiasauth.liferayferias.wedeploy.me/oauth/token -->
 </head>
 <body>
-<div class="toolbar">
-    <span class="user-name">Fulano de tal <span class="available-days">(30 dias)</span></span>
-</div>
+<div class="banner"></div>
+    <script src="/banner.js"></script>
+
 
 <nav class="tabs">
     <ul>
@@ -116,7 +121,9 @@
         WeDeploy
             .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
             .post({
-                userId: 12345,
+                userId: currentUser.id,
+                userName: 'Test test',
+                userEmail: 'adam.brandizzi+test@liferay.com',
                 managerId: 54321,
                 startDate: getDateFromDate(startDate.value),//startDate.value,
                 endDate: getDateFromDate(endDate.value),//endDate.value,
@@ -131,7 +138,7 @@
             });
 
     });
-</script>ge
+</script>
 
 
 

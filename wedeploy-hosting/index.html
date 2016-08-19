@@ -13,13 +13,33 @@
     <script src="metal-liferayFerias/build/globals/liferayFerias.js"></script>
     
     <script src="http://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
-</head>
-<body>
     <!-- <button id="authButton" class="btn btn-primary" type="button">Login</button>
     <button id="logOutButton" class="btn btn-primary" type="button">Logout</button> -->
+    <!-- API KEY: AIzaSyBIb3sisfumDyEAUKSZGNbjMFqfGBEEGuU -->
+    <!-- Here is your client ID: 284105657488-ee2rvit8dvcveoe9qonprfpkb2iht46a.apps.googleusercontent.com -->
+    <!-- Here is your client secret: Z8opyvHjA5k0qtiw7jxL451r -->
+    <!-- http://liferayferiasauth.liferayferias.wedeploy.me/oauth/token -->
+</head>
+<body>
+<div class="banner"></div>
+    <button id="authButton" class="btn btn-primary" type="button">Login</button>
+    <button id="logOutButton" class="btn btn-primary" type="button">Logout</button>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="/my_requests.html">My requests</a>
+            </li>
+            <li>
+                <a href="/requests_to_me.html">Requests sent to me</a>
+            </li>
+        </ul>
+    </nav>
 
     <script type="text/javascript">
         new metal.LiferayFeriasMyRequests();
     </script>
 </body>
+    <script src="/banner.js"></script>
 </html>
+

@@ -1,1 +1,178 @@
-<script src="request_to_me.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liferay Ferias</title>
+    <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/lexicon-font-awesome.css">
+    <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/atlas-font-awesome.css">
+    <meta charset="utf-8" /> 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+    <link rel="stylesheet" href="metal-liferayFerias/build/liferayFerias.css">
+    <script src="metal-liferayFerias/build/globals/liferayFerias.js"></script>
+    <script src="http://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
+<style>
+    body {
+        padding-left: 1em;
+        }
+        hidden {
+        display:none}
+</style>
+    <!-- API KEY: AIzaSyBIb3sisfumDyEAUKSZGNbjMFqfGBEEGuU -->
+    <!-- Here is your client ID: 284105657488-ee2rvit8dvcveoe9qonprfpkb2iht46a.apps.googleusercontent.com -->
+    <!-- Here is your client secret: Z8opyvHjA5k0qtiw7jxL451r -->
+    <!-- http://liferayferiasauth.liferayferias.wedeploy.me/oauth/token -->
+</head>
+<body>
+<div class="banner"></div>
+    <script src="/banner.js"></script>
+<div class="toolbar">
+    <span class="user-name">Fulano de tal <span class="available-days">(30 dias)</span></span>
+</div>
+
+<nav class="tabs">
+    <ul>
+        <li>
+            <a href="/my_requests.html">My requests</a>
+        </li>
+        <li>
+            <a href="/requests_to_me.html">Requests sent to me</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="my-requests">
+    <label>No request now</label>
+</div>
+
+<div class="full hidden">
+    <input class="id" name="id" type="hidden">
+    <div class="requisitor"></div>
+    <div class="start-date"></div>
+    <div class="end-date"></div>
+    <div class="status"></div>
+    <div class="sell"></div>
+    <textarea></textarea>
+    <button name="approve">Approve</button>
+    <button name="reject">Reject</button>
+</div>
+
+<script>
+    var div = document.getElementsByClassName('full')[0];
+
+    var requests_global = {};
+    function showRequest(id) {
+        var req = requests_global[id];
+        var requisitor = div.getElementsByClassName('requisitor')[0];
+        requisitor.innerHTML = req.userName; 
+       var id = div.getElementsByClassName('id')[0];
+        id.value = req.id;
+        var startDate = div.getElementsByClassName('start-date')[0];
+        startDate.innerHTML = getDateFromDateAsString(req.startDate);
+                var endDate = div.getElementsByClassName('end-date')[0];
+        endDate.innerHTML = getDateFromDateAsString(req.endDate);
+                var status = div.getElementsByClassName('status')[0];
+        status.innerHTML = req.status;
+                var sell = div.getElementsByClassName('sell')[0];
+        sell.innerHTML = req.sellDays;
+        div.className = "full";
+    }
+    function getDateFromDateAsString(date) {
+        return date.year + '-' + (date.month)+'-'+date.day;
+     }
+    function getDateFromDate(date) {
+        var date = date.split('-')
+        return {
+            year: parseInt(date[0]),
+            month: parseInt(date[1]),
+            day: parseInt(date[2])
+        };
+    }
+
+
+    function getRowWithDatesAsDates(request) {
+        return '<div class="row" onclick="showRequest(\'' + request.id + '\');"><span class="start-date">'
+                    +getDateFromDateAsString(request.startDate)+
+                    '</span> <span class="end-date">'+
+                    getDateFromDateAsString(request.endDate)+'</span> <span class="status">'
+                    +request.status+'</span></div>';
+    }
+
+    WeDeploy
+        .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
+        .filter('managerId', '=', 54321)
+        .get()
+        .then(function(weresponse) {
+            var requests = weresponse.body_;
+            console.log(requests);
+            if (requests.length <= 0) {
+                return;
+            }
+            
+            var rows = "";
+            requests.forEach(function(request) {
+                rows += getRowWithDatesAsDates(request);
+                requests_global[request.id] = request;
+            });
+            
+            var myReqs = document.getElementsByClassName('my-requests')[0];
+            myReqs.innerHTML = rows;
+        });
+        
+        
+     var approve = document.getElementsByName('approve')[0];
+
+    approve.addEventListener('click', function() {
+        var id = document.getElementsByName('id')[0];
+ 
+        var currentUser = WeDeploy.auth().currentUser;
+
+if (currentUser) {
+console.log(currentUser);
+    // User is signed in.
+} else {
+    // No user is signed in.
+}
+    
+        WeDeploy
+            .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/'+id.value)
+            .patch({
+                status: "manager_approved"
+            });
+        WeDeploy.url('http://mamail.liferayferias.wedeploy.me/emails')
+            .form('from', 'trololol@liferay.com')
+            .form('to', 'adam.brandizzi@liferay.com')
+            .form('subject', 'You have been... APPROVED')
+            .form('message', 'Yeah you are approved')
+            .post()
+            .then(function(r){
+                console.log(r);
+            })
+            .catch(function(a){
+                console.log('AAAAAAA', a);
+            });
+    });
+     var reject = document.getElementsByName('reject')[0];
+    reject.addEventListener('click', function() {
+        var textarea = document.getElementsByTagName('textarea')[0];
+        var id = document.getElementsByName('id')[0];
+        WeDeploy
+            .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/'+id.value)
+            .patch({
+                justification: textarea.value,
+                status: 'manager_rejected'
+            });
+        WeDeploy.url('http://mamail.liferayferias.wedeploy.me/emails')
+            .form('from', currentUser.email)
+            .form('to', 'adam.brandizzi@liferay.com')
+            .form('subject', 'You have been... REJECTED')
+            .form('message', 'Yeah you are REJECTED. jUSTIFICATION: '+textarea.value +'.')
+            .post()
+            .then(function(r){
+                console.log(r);
+            })
+            .catch(function(a){
+                console.log('AAAAAAA', a);
+            });
+    });
+</script>
