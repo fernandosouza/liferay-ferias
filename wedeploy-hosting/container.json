@@ -1,0 +1,5 @@
+{
+    "id": "wedeploy-hosting",
+    "name": "WeDeploy Hosting",
+    "type": "wedeploy/hosting:latest"
+}
