@@ -4,5 +4,14 @@
  * This renders the component's whole content.
  */
 {template .render}
-	<div>Hello World</div>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        {call LiferayFeriasHeader.render /}
+
+        <main>
+            <div class="container">
+            {call LiferayFeriasMyRequests.render /}
+            </div>
+        </main>
+    </div>
 {/template}

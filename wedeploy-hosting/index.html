@@ -2,31 +2,21 @@
 <html>
 <head>
     <title>Liferay Ferias</title>
-    <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/lexicon-font-awesome.css">
-    <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/atlas-font-awesome.css">
+    <meta charset="utf-8" /> 
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
+    <link rel="stylesheet" href="metal-liferayFerias/build/liferayFerias.css">
+    <script src="metal-liferayFerias/build/globals/liferayFerias.js"></script>
+    
     <script src="http://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
-
-    <!-- API KEY: AIzaSyBIb3sisfumDyEAUKSZGNbjMFqfGBEEGuU -->
-    <!-- Here is your client ID: 284105657488-ee2rvit8dvcveoe9qonprfpkb2iht46a.apps.googleusercontent.com -->
-    <!-- Here is your client secret: Z8opyvHjA5k0qtiw7jxL451r -->
-    <!-- http://liferayferiasauth.liferayferias.wedeploy.me/oauth/token -->
 </head>
 <body>
-    <button id="authButton" class="btn btn-primary" type="button">Login</button>
-    <button id="logOutButton" class="btn btn-primary" type="button">Logout</button>
+    <!-- <button id="authButton" class="btn btn-primary" type="button">Login</button>
+    <button id="logOutButton" class="btn btn-primary" type="button">Logout</button> -->
 
-    <nav>
-        <ul>
-            <li>
-                <a href="/my_requests.html">My requests</a>
-            </li>
-            <li>
-                <a href="/requests_to_me.html">Requests sent to me</a>
-            </li>
-        </ul>
-    </nav>
-
-    <script type="text/javascript" src="auth.js"></script>
+    <script type="text/javascript">
+        new metal.LiferayFerias();
+    </script>
 </body>
 </html>
