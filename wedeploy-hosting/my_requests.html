@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="http://liferay.github.io/lexicon/css/atlas-font-awesome.css">
 
     <script src="http://cdn.wedeploy.com/api/latest/wedeploy.js"></script>
-
+<style>
+    body {
+        padding-left: 1em;
+        }
+</style>
     <!-- API KEY: AIzaSyBIb3sisfumDyEAUKSZGNbjMFqfGBEEGuU -->
     <!-- Here is your client ID: 284105657488-ee2rvit8dvcveoe9qonprfpkb2iht46a.apps.googleusercontent.com -->
     <!-- Here is your client secret: Z8opyvHjA5k0qtiw7jxL451r -->
@@ -37,11 +41,11 @@
         <input type="hidden" name="requester" value="">
         <div>
             <label for="first_day">First day</label>
-            <input name="first_day" />
+            <input name="first_day"  type="date" />
         </div>
         <div>
             <label for="last_day">Last day</label>
-            <input name="last_day" />
+            <input name="last_day" type="date" />
         </div>
         <div>
             <label for="intention">Intention</label>
@@ -59,16 +63,48 @@
 </form>
 
 <script>
-    WeDeploy.url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
+    function getDateFromDateAsString(date) {
+        return date.year + '-' + (date.month)+'-'+date.day;
+     }
+    function getDateFromDate(date) {
+        var date = date.split('-')
+        return {
+            year: parseInt(date[0]),
+            month: parseInt(date[1]),
+            day: parseInt(date[2])
+        };
+    }
+
+
+    function getRowWithDatesAsDates(request) {
+        return '<div class="row"><span class="start-date">'
+                    +getDateFromDateAsString(request.startDate)+
+                    '</span> <span class="end-date">'+
+                    getDateFromDateAsString(request.endDate)+'</span> <span class="status">'
+                    +request.status+'</span></div>';
+    }
+
+    WeDeploy
+        .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
         .get()
-        .then(function(stuff) {
-            console.log('reqs');
-            for (var i = stuff.length - 1; i >= 0; i--) {
-                console.log("request", stuff[i]);
-            };
+        .then(function(weresponse) {
+            var requests = weresponse.body_;
+            console.log(requests);
+            if (requests.length <= 0) {
+                return;
+            }
+            
+            var rows = "";
+            requests.forEach(function(request) {
+                rows += getRowWithDatesAsDates(request);
+            });
+            
+            var myReqs = document.getElementsByClassName('my-requests')[0];
+            myReqs.innerHTML = rows;
         });
 
     var form = document.getElementsByTagName('form')[0];
+
     form.addEventListener('submit', function(event) {
         var button = document.getElementsByClassName('create')[0];
         var startDate = document.getElementsByName('first_day')[0];
@@ -82,20 +118,20 @@
             .post({
                 userId: 12345,
                 managerId: 54321,
-                startDate: new Date(),//startDate.value,
-                endDate: new Date(),//endDate.value,
+                startDate: getDateFromDate(startDate.value),//startDate.value,
+                endDate: getDateFromDate(endDate.value),//endDate.value,
                 sellDays: false,
                 intention: 2,
                 status: "pending"
             })
             .then(function(res) {
-                console.log(res);
+                console.log(res.body_);
+                var myReqs = document.getElementsByClassName('my-requests')[0];
+                myReqs.innerHTML += getRowWithDatesAsDates(res.body_);
             });
 
     });
-</script>
-
-<script src="my_request.js"></script>
+</script>ge
 
 
 
