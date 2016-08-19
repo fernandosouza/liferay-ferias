@@ -18,7 +18,6 @@
 </div>
 
 <form>
-    <span>30 dias</span>
     <fieldset>
         <input type="hidden" name="requester" value="">
         <div>
@@ -41,7 +40,22 @@
         </div>
         <input type="submit">
     </fieldset>
-    Create request
+    <button class="create">Create request</create>
 </form>
+
+<script>
+
+    var auth = WeDeploy.auth('http://users.liferayferias.wedeploy.me')
+        .signInWithPassword("test@liferay.com", "senha123")
+        .then(function(user) {
+            // User is signed in.
+        })
+        .catch(function(err) {  
+          // User is not signed in.
+        });
+
+
+</script>
+
 
 <script src="my_request.js"></script>

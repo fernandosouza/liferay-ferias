@@ -1,4 +1,5 @@
-var myRequests = WeDeploy.url('http://users.liferayferias.wedeploy.me/request')
+var myRequests =
+    WeDeploy.url('http://users.liferayferias.wedeploy.me/request')
 	.filter('userid', '=', userid)
 	.sort('createDate', 'desc')
 	.get();
