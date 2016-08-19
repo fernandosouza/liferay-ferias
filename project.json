@@ -1,4 +1,5 @@
 {
     "id": "liferayferias",
-    "name": "Liferay Ferias"
+    "name": "Liferay Ferias",
+    "homeContainer": "wedeployhosting"
 }
