@@ -1,0 +1,11 @@
+{
+    "id": "liferayferiasauth",
+    "name": "Liferay Ferias Auth",
+    "type": "wedeploy/auth",
+    "env": {
+        "WEDEPLOY_AUTH_PASSWORD": "true",
+        "WEDEPLOY_AUTH_GOOGLE": "true",
+        "WEDEPLOY_AUTH_GOOGLE_CLIENT_ID": "284105657488-ee2rvit8dvcveoe9qonprfpkb2iht46a.apps.googleusercontent.com",
+        "WEDEPLOY_AUTH_GOOGLE_CLIENT_SECRET": "Z8opyvHjA5k0qtiw7jxL451r"
+    }
+}
