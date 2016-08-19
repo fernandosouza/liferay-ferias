@@ -1,5 +1,0 @@
-{
-    "id": "users",
-    "name": "Liferay Férias Users",
-    "type": "wedeploy/auth:latest"
-}
