@@ -1,0 +1,5 @@
+{
+    "id": "liferay-ferias-data",
+    "name": "Liferay Ferias Data",
+    "type": "wedeploy/data:latest"
+}
