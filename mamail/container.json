@@ -1,0 +1,5 @@
+{
+    "id": "mamail",
+    "name": "mamamamamail",
+    "type": "wedeploy/email:latest"
+}
