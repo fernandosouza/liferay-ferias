@@ -1,0 +1,39 @@
+<div class="toolbar">
+    <span class="user-name">Fulano de tal <span class="available-days">(30 dias)</span></span>
+</div>
+
+<nav class="tabs">
+    <ul>
+        <li>
+            <a href="/my_requests.html">My requests</a>
+        </li>
+        <li>
+            <a href="/requests_to_me.html">Requests sent to me</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="my-requests">
+    <label>No request now</label>
+</div>
+
+<form>
+    <span>30 dias</span>
+    <fieldset>
+        <input type="hidden" name="requester" value="">
+        <div>
+            <label for="first_day">First day</label>
+            <input name="first_day" />
+        </div>
+        <div>
+            <label for="last_day">Last day</label>
+            <input name="last_day" />
+        </div>
+        <div>
+            <input type="checkbox" name="sell">
+            <label for="sell">Sell?</sell>
+        </div>
+        <input type="submit">
+    </fieldset>
+    Create request
+</form>

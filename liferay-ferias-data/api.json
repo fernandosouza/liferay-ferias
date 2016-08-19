@@ -1,0 +1,6 @@
+[
+    {
+        "path": "/requests/*",
+        "data": true
+    }
+]
