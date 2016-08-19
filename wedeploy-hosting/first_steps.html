@@ -3,9 +3,39 @@
 
     <label for="manager">Select your manager</label>
     <br>
-    <select name="manager">
+    <select class="manager" name="manager">
         <option value="foo">Ciclano de Tal</option>
         <option value="bar">Beltrano de Tal</option>
     </select>
-    <input type="submit">
+    <input class="save-manager" type="submit">
 </form>
+
+<script>
+
+var currentUser = WeDeploy.auth().currentUser;
+
+var form = document.getElementByTagNames('form')[0];
+
+form.addEventListener('submit', function(event) {
+    var select = document.getElementByClassName('manager')[0];
+    var managerId = parseInt(select.value);
+
+    WeDeploy
+        .url('http://users.liferayferias.wedeploy.me/user/'+currentUser.id)
+        .patch({
+            "manager": managerId,
+        })
+        .url('http://users.liferayferias.wedeploy.me/user/'+managerId)
+        .post({
+            "isManager": true
+        })
+        .then(function(clientResponse) {
+            console.log(clientResponse.body())
+        });
+
+    event.preventDefault();
+});
+
+var button = document.getElementByClassName('save-manager');
+
+</script>
