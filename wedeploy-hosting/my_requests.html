@@ -59,45 +59,39 @@
 </form>
 
 <script>
-    var auth = WeDeploy.auth('http://liferayferiasauth.liferayferias.wedeploy.me');
-
-    auth.signInWithEmailAndPassword("test@liferay.com", "senha123")
-    .then(function(user) {
-        var currentUser = auth.currentUser;
-        console.log('trololol', currentUser);
-        
-        var form = document.getElementsByTagName('form')[0];
-
-        form.addEventListener('submit', function(event) {
-            var button = document.getElementByClassName('create')[0];
-            var startDate = document.getElementsByName('first_day');
-            var endfDate = document.getElementsByName('last_day');
-            var managerId = parseInt(select.value);
-
-            WeDeploy
-                .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
-                .post({
-                    userId: 12345,
-                    managerId: 54321,
-                    startDate: startDate,
-                    endDate: endDate,
-                    sellDays: false,
-                    intention: 2,
-                    status: "pending"
-                })
-                .get()
-                .then(function(stuff) {
-                    for (var i = requestToMe.length - 1; i >= 0; i--) {
-                        console.log("request", requestToMe[i]);
-                    };
-                });
-
-            event.preventDefault();
+    WeDeploy.url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
+        .get()
+        .then(function(stuff) {
+            console.log('reqs');
+            for (var i = stuff.length - 1; i >= 0; i--) {
+                console.log("request", stuff[i]);
+            };
         });
-        
-    })
-    .catch(function(err) {  
-      console.log('glugluglu', err);
+
+    var form = document.getElementsByTagName('form')[0];
+    form.addEventListener('submit', function(event) {
+        var button = document.getElementsByClassName('create')[0];
+        var startDate = document.getElementsByName('first_day')[0];
+        var endDate = document.getElementsByName('last_day')[0];
+        var select = document.getElementsByName('intention')[0];
+        var managerId = parseInt(select.value);
+
+        event.preventDefault();
+        WeDeploy
+            .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
+            .post({
+                userId: 12345,
+                managerId: 54321,
+                startDate: new Date(),//startDate.value,
+                endDate: new Date(),//endDate.value,
+                sellDays: false,
+                intention: 2,
+                status: "pending"
+            })
+            .then(function(res) {
+                console.log(res);
+            });
+
     });
 </script>
 
