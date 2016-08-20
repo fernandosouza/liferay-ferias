@@ -12,6 +12,12 @@ class LiferayFeriasMyRequests extends Component {
         instance.list();
     }
 
+    rendered() {
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    }
+
     setupForm() {
         var instance = this;
         var form = instance.element.querySelector('form');

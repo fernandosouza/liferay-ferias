@@ -2,24 +2,38 @@
 
 /**
  * This renders the component's whole content.
- * @param? request
+ * @param? itens
  */
 {template .render}
+  <div class="row">
+    {foreach $item in $itens}
+        {call .card }
+          {param item: $item /}
+        {/call}
+    {/foreach}
+  </div>
+{/template}
+
+/**
+ * This renders the component's whole content.
+ * @param? item
+ */
+{template .card}
     <div class="col s12 m6">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <span class="card-title">Java</span>
-          {if $request.startDate.day and $request.startDate.month and $request.startDate.year }
-          <p>Sair de férias em: {$request.startDate.day}/{$request.startDate.month}/{$request.startDate.year}</p>
+          {if $item.startDate.day and $item.startDate.month and $item.startDate.year }
+          <p>Início em: {$item.startDate.day}/{$item.startDate.month}/{$item.startDate.year}</p>
           {/if}
 
-          {if $request.endDate.day and $request.endDate.month and $request.endDate.year }
-          <p>Voltar de férias em: {$request.endDate.day}/{$request.endDate.month}/{$request.endDate.year}</p>
+          {if $item.endDate.day and $item.endDate.month and $item.endDate.year }
+          <p>Volta em: {$item.endDate.day}/{$item.endDate.month}/{$item.endDate.year}</p>
           {/if}
 
-          <p>Vai vender férias: {($request.sellDays) ? 'sim' : 'não'}</p>
+          <p>Vai vender férias: {($item.sellDays) ? 'sim' : 'não'}</p>
 
-          <p>Status: {$request.status}</p>
+          <p>Status: {$item.status}</p>
         </div>
         // <div class="card-action">
         //   <a href="#">This is a link</a>
