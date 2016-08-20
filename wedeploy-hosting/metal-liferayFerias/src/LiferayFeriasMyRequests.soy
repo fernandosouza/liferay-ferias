@@ -5,24 +5,43 @@
  * @param? requests
  */
 {template .render}
-    <div class="row">
-        <h2>My Requests</h2>
-        
-        {call .listRequests}
-          {param requests: $requests /}
-        {/call}
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        {call LiferayFeriasHeader.render /}
 
-        <form class="col s12">
-            <div class="row">
-                <label for="sample1">Start Day</label>
-                <input name="first_day" class="mdl-textfield__input" placeholder="" type="date" id="sample1">
+        <main>
+            <div class="container">
+                <div class="row">
+                    <h2>My Requests</h2>
+                    
+                    {call .listRequests}
+                      {param requests: $requests /}
+                    {/call}
+
+                    {call .form /}
+                </div>
             </div>
-            <div class="row">
-                <label for="last_day">Last day</label>
-                <input name="last_day" class="mdl-textfield__input" placeholder="" type="date" id="sample1">
-            </div>
-            <div class="row">
-                <label for="intention">Intention</label>
+        </main>
+    </div>
+{/template}
+
+
+/**
+ * This renders the component's whole content.
+ */
+{template .form}
+    <form class="col s12">
+        <div class="row">
+            <label for="sample1">Start Day</label>
+            <input name="first_day" class="mdl-textfield__input" placeholder="" type="date" id="sample1">
+        </div>
+
+        <div class="row">
+            <label for="last_day">Last day</label>
+            <input name="last_day" class="mdl-textfield__input" placeholder="" type="date" id="sample1">
+        </div>
+
+        <div class="row">
+            <div class="input-field">
                 <select name="intention">
                     <option value="">Selecione</option>
                     <option value="1">January</option>
@@ -38,17 +57,19 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
+                <label for="intention">Intention</label>
             </div>
-            <div class="row">
-                <input type="checkbox" name="sell">
-                <label for="sell">Sell?</sell>
-            </div>
+        </div>
 
-            <div class="row">
-                <button class="waves-effect waves-light btn">Add new</button>
-            </div>
-        </form>
-    </div>
+        <div class="row">
+            <input type="checkbox" id="sell" name="sell">
+            <label for="sell">Sell?</sell>
+        </div>
+
+        <div class="row">
+            <button class="waves-effect waves-light btn">Add new</button>
+        </div>
+    </form>
 {/template}
 
 
@@ -58,10 +79,8 @@
  */
 {template .listRequests}
     <div class="row">
-    {foreach $request in $requests}
         {call LiferayFeriasCards.render }
-          {param request: $request /}
+            {param itens: $requests /}
         {/call}
-    {/foreach}
     </div>
 {/template}
