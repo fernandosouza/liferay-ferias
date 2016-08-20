@@ -1,0 +1,19 @@
+{namespace LiferayFeriasAuth}
+
+/**
+ * This renders the component's whole content.
+ * @param? user
+ */
+{template .render}
+  
+  <div class="liferay-ferias-auth-user">
+    {if not $user}
+    <button id="authButton" class="btn btn-primary" type="button">Login</button>
+    {/if}
+
+    {if $user}
+    <button id="logOutButton" class="btn btn-primary" type="button">Logout</button>
+    {/if}
+  </div>
+
+{/template}

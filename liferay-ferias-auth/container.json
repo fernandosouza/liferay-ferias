@@ -1,5 +1,5 @@
 {
-    "id": "liferayferiasauth",
+    "id": "auth",
     "name": "Liferay Ferias Auth",
     "type": "wedeploy/auth",
     "env": {
