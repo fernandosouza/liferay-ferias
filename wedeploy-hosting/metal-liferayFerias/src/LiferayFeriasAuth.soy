@@ -12,6 +12,10 @@
     {/if}
 
     {if $user}
+    <div class="chip">
+      <img src="{$user.photoUrl}" width="50" /> {$user.email}
+    </div>
+    
     <button id="logOutButton" class="btn btn-primary" type="button">Logout</button>
     {/if}
   </div>

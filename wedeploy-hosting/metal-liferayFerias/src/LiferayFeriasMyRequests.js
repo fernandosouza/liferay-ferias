@@ -38,20 +38,8 @@ class LiferayFeriasMyRequests extends Component {
             .then(function(weresponse) {
                 var requests = weresponse.body_;
 
-                console.log(requests);
-
                 instance.requests = requests;
             });
-    }
-
-    getRowWithDatesAsDates(request) {
-        var instance = this;
-
-        return '<div class="row"><span class="start-date">'
-                    + instance.getDateFromDateAsString(request.startDate)+
-                    '</span> <span class="end-date">'+
-                    instance.getDateFromDateAsString(request.endDate)+'</span> <span class="status">'
-                    +request.status+'</span></div>';
     }
 
     getDateFromDateAsString(date) {
@@ -81,8 +69,8 @@ class LiferayFeriasMyRequests extends Component {
             .post({
                 userId: 12345,
                 managerId: 54321,
-                startDate: instance.getDateFromDate(startDate.value),//startDate.value,
-                endDate: instance.getDateFromDate(endDate.value),//endDate.value,
+                startDate: instance.getDateFromDate(startDate.value),
+                endDate: instance.getDateFromDate(endDate.value),
                 sellDays: false,
                 intention: 2,
                 status: "pending"
