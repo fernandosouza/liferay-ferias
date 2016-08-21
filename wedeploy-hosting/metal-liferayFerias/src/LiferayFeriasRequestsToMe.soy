@@ -45,7 +45,7 @@
  */
 {template .feedBack}
     {if $requestFeedBack}
-        Responding to <b>Java</b> requirement ({$requestFeedBack.id})
+        Responding to <b>{$requestFeedBack.user.name}</b>
         <ul>
             {if $requestFeedBack.startDate.day and $requestFeedBack.startDate.month and $requestFeedBack.startDate.year }
             <li>Início em: {$requestFeedBack.startDate.day}/{$requestFeedBack.startDate.month}/{$requestFeedBack.startDate.year}</li>

@@ -1,6 +1,7 @@
 'use strict';
 
 import templates from './LiferayFeriasMyRequests.soy';
+import Auth from './auth';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
 
@@ -67,13 +68,14 @@ class LiferayFeriasMyRequests extends Component {
         WeDeploy
             .url('http://liferayferiasdata.liferayferias.wedeploy.me/requests/')
             .post({
-                userId: 12345,
+                userId: WeDeploy.auth().currentUser.id,
                 managerId: 54321,
                 startDate: instance.getDateFromDate(startDate.value),
                 endDate: instance.getDateFromDate(endDate.value),
                 sellDays: false,
                 intention: 2,
-                status: "pending"
+                status: "pending",
+                user: WeDeploy.auth().currentUser
             })
             .then(function(res) {
                 instance.list();
