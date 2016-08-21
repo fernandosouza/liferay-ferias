@@ -30,8 +30,6 @@ class LiferayFeriasRequestsToMe extends Component {
 
     _showRequest(event) {
         this.requestFeedBack = this.requests[event.delegateTarget.dataset.index];
-
-        console.log(this.requestFeedBack);
     }
 
     _aproveRequest() {
