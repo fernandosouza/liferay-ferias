@@ -9,6 +9,7 @@
     {foreach $item in $itens}
         {call .card }
           {param item: $item /}
+          {param index: index($item) /}
         {/call}
     {/foreach}
   </div>
@@ -17,12 +18,13 @@
 /**
  * This renders the component's whole content.
  * @param? item
+ * @param? index
  */
 {template .card}
     <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Java</span>
+      <div class="card {if not $item.status} amber {/if} {if $item.status == 'manager_rejected'} red {/if} {if $item.status == 'manager_approved'} green {/if} darken-1">
+        <div class="card-content white-text" data-index="{$index}">
+          <span class="card-title">Java (id: {$item.id})</span>
           {if $item.startDate.day and $item.startDate.month and $item.startDate.year }
           <p>Início em: {$item.startDate.day}/{$item.startDate.month}/{$item.startDate.year}</p>
           {/if}

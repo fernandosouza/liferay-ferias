@@ -1,0 +1,67 @@
+{namespace LiferayFeriasRequestsToMe}
+
+/**
+ * This renders the component's whole content.
+ * @param? requests
+ * @param? requestFeedBack
+ */
+{template .render}
+    <div class="liferay-ferias-requests-to-me mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        {call LiferayFeriasHeader.render /}
+
+        <main>
+            <div class="container">
+                <div class="row">
+                    <h2>Requests to Me</h2>
+                    
+                    {call .listRequests}
+                      {param requests: $requests /}
+                    {/call}
+                </div>
+
+                <div>
+                {call .feedBack data="all" /}
+                </div>
+            </div>
+        </main>
+    </div>
+{/template}
+
+/**
+ * This renders the component's whole content.
+ * @param? requests
+ */
+{template .listRequests}
+    <div class="row">
+        {call LiferayFeriasCards.render }
+            {param itens: $requests /}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * This renders the component's whole content.
+ * @param? requestFeedBack
+ */
+{template .feedBack}
+    {if $requestFeedBack}
+        Responding to <b>Java</b> requirement ({$requestFeedBack.id})
+        <ul>
+            {if $requestFeedBack.startDate.day and $requestFeedBack.startDate.month and $requestFeedBack.startDate.year }
+            <li>Início em: {$requestFeedBack.startDate.day}/{$requestFeedBack.startDate.month}/{$requestFeedBack.startDate.year}</li>
+            {/if}
+            {if $requestFeedBack.endDate.day and $requestFeedBack.endDate.month and $requestFeedBack.endDate.year }
+            <li>Volta em: {$requestFeedBack.endDate.day}/{$requestFeedBack.endDate.month}/{$requestFeedBack.endDate.year}</li>
+            {/if}
+            <li>Vai vender férias: {($requestFeedBack.sellDays) ? 'sim' : 'não'}</li>
+            <li>Status: {$requestFeedBack.status}</li>
+        </ul>
+    <div class="row">
+        <form>
+            <textarea name="feedbacktext" class="materialize-textarea"></textarea>
+            <button type="button" class="btn" id="aproveRequest">Aprove</button>
+            <button type="button" class="btn" id="rejectRequest">Reject</button>
+        </form>
+    </div>
+    {/if}
+{/template}
