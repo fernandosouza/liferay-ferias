@@ -10,6 +10,12 @@ class LiferayFeriasRequestsToMe extends Component {
         this.list();
     }
 
+    rendered() {
+        if (!WeDeploy.auth().currentUser) {
+            DOM.addClasses(this.element.querySelector('.container'), 'hide');
+        }
+    }
+
     attached() {
         DOM.delegate(this.element, 'click', '.card-content', this._showRequest.bind(this));     
         DOM.delegate(this.element, 'click', '#aproveRequest', this._aproveRequest.bind(this));

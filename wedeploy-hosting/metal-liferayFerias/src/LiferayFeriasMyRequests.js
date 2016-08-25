@@ -3,6 +3,7 @@
 import templates from './LiferayFeriasMyRequests.soy';
 import Auth from './auth';
 import Component from 'metal-component';
+import DOM from 'metal-dom';
 import Soy from 'metal-soy';
 
 class LiferayFeriasMyRequests extends Component {
@@ -14,6 +15,10 @@ class LiferayFeriasMyRequests extends Component {
     }
 
     rendered() {
+        if (!WeDeploy.auth().currentUser) {
+            DOM.addClasses(this.element.querySelector('.container'), 'hide');
+        }
+
         $(document).ready(function() {
             $('select').material_select();
         });
